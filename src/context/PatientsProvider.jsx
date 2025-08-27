@@ -96,7 +96,7 @@ export const PatientsProvider = ({ children }) => {
                 },
             });
             setPatients(patients.filter((p) => p._id !== id));
-            setPatient([]);
+            setPatient(null);
             return { alert: { msg: data.msg } };
         } catch (e) {
             return { alert: { msg: e.message, error: true } };
