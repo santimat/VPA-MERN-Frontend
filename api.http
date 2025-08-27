@@ -1,0 +1,93 @@
+# VARIABLES
+@hostname= localhost
+@port= 3000
+@protocol= http://
+@host= {{protocol}}{{hostname}}:{{port}}/api
+@authToken=eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJpZCI6IjY4YWI0ZjdlNDNjNzNkMThiZTYzNjcwZSIsImlhdCI6MTc1NjA1NzUwNiwiZXhwIjoxNzU4NjQ5NTA2fQ.ROtYDo8YuzUgAVvJuNnQZjS2CuQZtjDsIIvEdFmYmJc
+@tokenUser=1j3eit1omig6dlqmiho
+
+
+### VETERINARIANS ENDPOINTS
+
+### Create a veterinarian
+POST {{host}}/veterinarian
+Content-Type: application/json
+
+{
+    "name": "santi",
+    "email": "santi@correo.com",
+    "password": "santigamer"
+}
+
+### Confirm a veterinarian
+GET {{host}}/veterinarian/confirm/{{tokenUser}}
+
+### Reset password
+POST {{host}}/veterinarian/forgot-password
+Content-Type: application/json
+
+{
+    "email": "correo2@correo.com"
+}
+
+### Check token when user change their password
+GET {{host}}/veterinarian/forgot-password/{{{{tokenUser}}}}
+
+### Save the new password
+PATCH {{host}}/veterinarian/forgot-password/{{{{tokenUser}}}}
+Content-Type: application/json
+
+{
+    "password": "santimat5"
+}
+
+### Authenticate veterinarian
+POST {{host}}/veterinarian/login
+Content-Type: application/json
+
+{
+    "email": "santi@correo.com",
+    "password": "santigamer"
+}
+
+### Veterinarian profile (Private route)
+GET {{host}}/veterinarian/profile
+Authorization: Bearer {{authToken}}
+
+
+### PATIENTS ENDPOINTS (Private routes)
+
+### Add a patient
+POST {{host}}/patient
+Authorization: Bearer {{authToken}}
+Content-Type: application/json
+
+{
+    "name": "mailen",
+    "owner": "santi",
+    "email": "correo1@correo.com",
+    "appointment": "2025-10-5",
+    "symptoms": "She is nice"
+}
+
+### Get all patients
+GET {{host}}/patient
+Authorization: Bearer {{authToken}}
+
+### Get a patient
+GET {{host}}/patient/68ab4f1b16612e25895004e4
+Authorization: Bearer {{authToken}}
+
+### Update a patient
+PUT {{host}}/patient/68ab5024cd748e400dc10baf
+Authorization: Bearer {{authToken}}
+Content-Type: application/json
+
+{
+    "name":"rubi",
+    "owner": "santino"
+}
+
+### Delete a patient
+DELETE {{host}}/patient/68ab5024cd748e400dc10baf
+Authorization: Bearer {{authToken}}
